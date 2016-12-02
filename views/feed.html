@@ -1,0 +1,184 @@
+<html>
+<head>
+    <!-- jQuery | Bootstrap -->
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script src="javascripts/canvasjs.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' href="stylesheets/index.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>
+
+
+
+
+    <script>
+
+        //ONLOAD\\
+
+        $(document).ready(function () {
+            loadList();
+            //initMainScroll(); //Had to turn main scroll feature off bc it overlaps items. Uncomment to check for yourself.
+            initImgParallax();
+            moreAnimation();
+        });
+
+        //GLOBAL VARIABLES\\
+        var isScrolling = false;
+
+
+
+        function loadList() {
+
+            var listItem1 = $('.location1');
+            var listItem2 = $('.location2');
+            var listItem3 = $('.location3');
+
+            var text1 = "<p class='text1'>Posh, chandelier-filled nightclub featuring bottle service, scantily clad “Cake Dolls” & DJ nights.</p>";
+            var title1 = "<p class='title1'>CAKE</p>";
+
+            var text2 = "<p class='text2'>The first of its kind to enter Scottsdale; Whiskey Row has an old school country flare with a Scottsdale twist.</p>";
+            var title2 = "<p class='title2'>WHISKEY ROW</p>";
+
+            var text3 = "<p class='text3'>Blends the best Mexican food menu and Mexican Restaurant experience with today's highest energy nightlife including the best in EDM, Hip-Hop, and Top 40.</p>";
+            var title3 = "<p class='title3'>HEFE</p>";
+
+            var bg1 = "<img class='itemBg parallax' src='slices/bg.png'>";
+            var bg2 = "<img class='itemBgAlt parallax' src='slices/bg_alt.png'>";
+            var bg3 = "<img class='itemBg parallax' src='slices/bg.png'>";
+
+            var body1 = "<img class='itemBody' src='slices/cake.png'>";
+            var body2 = "<img class='itemBodyAlt' src='slices/whiskey.png'>";
+            var body3 = "<img class='itemBody' src='slices/hefe.png'>";
+
+            var plus1 = "<img class='plusSymbol' src='slices/plus.png'>";
+            var plus2 = "<img class='plusSymbolAlt' src='slices/plus.png'>";
+            var plus3 = "<img class='plusSymbol' src='slices/plus.png'>";
+
+            var more1 = "<img class='moreButton' src='slices/Rectangle.png'>";
+            var more2 = "<img class='moreButtonAlt' src='slices/Rectangle.png'>";
+            var more3 = "<img class='moreButton' src='slices/Rectangle.png'>";
+
+            var label1 = "<img class='label1' src='slices/cakelogo.png'>";
+            var label2 = "<img class='label2' src='slices/whiskeylogo.png'>";
+            var label3 = "<img class='label3' src='slices/hefelogo.png'>";
+
+            var rank1 = "<img class='rank1' src='slices/rank1.png'>";
+            var rank2 = "<img class='rank2' src='slices/rank2.png'>";
+            var rank3 = "<img class='rank3' src='slices/rank3.png'>";
+
+
+
+            listItem1.html(bg1 + body1 + more1 + plus1 + title1 + text1 + label1 + rank1);
+            listItem2.html(bg2 + body2 + more2 + plus2 + title2 + text2 + label2 + rank2);
+            listItem3.html(bg3 + body3 + more3 + plus3 + title3 + text3 + label3 + rank3);
+        }
+
+        /*function loadDetailsPage1(){
+            var menu =
+        }
+      */
+        function initMainScroll() {
+            $(function () {
+
+                var scrollMagicController = new ScrollMagic.Controller({
+                    globalSceneOptions: {
+                        triggerHook: 'onLeave'
+                    }
+                });
+
+                //get all locations
+                var locations = document.querySelectorAll("div.panel");
+
+                //create scene for each location div
+                for (var i = 0; i < locations.length; i++) {
+                    new ScrollMagic.Scene({ triggerElement: locations[i] })
+                   .setPin(locations[i])
+                   // .addIndicators() //add indicators (requires plugin which we have)
+                    .addTo(scrollMagicController);
+                }
+            });
+        };
+
+        function initImgParallax() {
+            $(function () {
+                //init controller
+                var controller = new ScrollMagic.Controller({ globalSceneOptions: { triggerHook: "onEnter", duration: "200%" } });
+                //build scenes in images
+                var images = document.querySelectorAll("div.img.parallax");
+                for (var i = 0; i < images.length; i++) {
+                    new ScrollMagic.Scene({ triggerElement: images[i] })
+                        .setTween(images[i]/*, {y: "100%", ease: Linear.easeNone}*/)
+                        //.addIndicators()
+                        .addTo(controller);
+                }
+            });
+        };
+
+        function moreAnimation() {
+            $(".location1 > .plusSymbol").click(function () {
+                $(function () {
+                    var detailMenu1 = $('.detailMenu1');
+
+
+                    var bg1 = "<img class='detailBg' src='slices/detail_bg.png'>";
+
+                    var text1 = null;
+                    var label1 = null;
+
+                    detailMenu1.html(bg1);
+
+                });
+                $('.detailMenu1').animate({ left: '-150%' });
+            });
+
+            $(".location2 > .plusSymbolAlt").click(function () {
+                //$('.container2').toggleClass('slide');
+                alert("hello");
+            });
+
+            $(".location3 > .plusSymbol").click(function () {
+                //$('.container3').toggleClass('slide');
+                alert("hello");
+            });
+        };
+
+    </script>
+
+</head>   
+  <body>
+        
+      <nav class='navbar navbar-fixed-top'>
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="index.html">Landing Page</a></li>
+                <li><a href="graph.html">Graph</a></li> 
+                <li><a href="login.html">Login</a></li> 
+            </ul>
+        </div>
+      </nav>
+      <div class='.detailMenu1'></div>
+      <div class="list itemBg" id="scene">
+          
+          <div class='.container1 panel'>
+          <div class="location1"></div>
+          </div>
+          
+          <div class='container2 panel'>
+          <div class="location2"></div>       
+          </div>
+           
+          <div class='container3 panel'>
+          <div class="location3"></div>
+          <div></div>
+          </div>
+        <!--<div class="detailsPage"><a class='back' style="color: white;">Back</a></div>-->
+    </div>
+  </body>
+</html>
+

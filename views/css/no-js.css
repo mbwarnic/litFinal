@@ -1,0 +1,28 @@
+.carousel-slider > div { display:none; }
+.carousel-slider > div:first-child { display:block; }
+.carousel-slider .slick-slide {
+	float:none;
+	width:auto;
+}
+.carousel-slider.testimonials-slider, .carousel-slider.screenshots-slider { padding-bottom:0px; }
+
+.animation { visibility:visible; }
+
+#header .navbar {
+	position:absolute;
+	-webkit-transition:none;
+	transition:none;
+}
+
+.carousel-slider.testimonials-slider .affa-testimonial { margin-bottom:0px; }
+
+@media (max-width: 767px) {
+	
+	.carousel-slider.testimonials-slider {
+		padding-bottom:0px;
+		margin-bottom:0px;
+	}
+	
+	#header .navbar { position:static; }
+	
+}

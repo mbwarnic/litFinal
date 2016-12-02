@@ -1,0 +1,20 @@
+{
+  "name": "twitter-cash-heatmap",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "consolidate": "*",
+    "swig": "*",
+    "cron": "*",
+    "express": "3.1.2",
+    "glob": "^7.1.1",
+    "jade": "*",
+    "ntwitter": "*",
+    "socket.io": "0.9",
+    "stylus": "*",
+    "underscore": "*"
+  }
+}

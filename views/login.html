@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-density-dpi=device-dpi" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:900,300,100,100italic,300italic,400italic,400,500,500italic,700,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
+    <link rel="stylesheet" href="../plugins/mdl/material.min.css">
+    <script src="../plugins/mdl/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.red-blue.min.css" />
+
+    <!-- RSS Feed Script -->
+    <script src="javascripts/jquery-2.2.1.min.js"></script>
+    <script src="javascripts/jquery.reject.js"></script>
+    <script src="javascripts/Ply.js"></script>
+    <script src="javascripts/offline.min.js"></script>
+    <script src="javascripts/moment.js"></script>
+    <script src="javascripts/moment-with-locales.js"></script>
+
+    
+    <script src="javascripts/login.js"></script>
+    <script src="javascripts/uaSpoofing.js"></script>
+    <link rel="stylesheet" href="stylesheets/ply.css" type="text/css" />
+
+
+
+
+    <script>
+
+
+
+        var user = null;
+        var allSubs = null;
+        var currentSub = null; //current feed that is open
+        var currentSubLink = null; //link for current feed that is open
+
+        var startUp = function() {
+            checkBrowsers();
+            //showLogin();
+        }
+
+
+
+        var checkBrowsers = function() {
+            $.reject({
+                reject: {
+                    msie: 7, //reject Internet Explorer 7 and below
+                    opera: true,
+                    konqueror: true,
+                    unknown: true
+                },
+                header: "Unsupported Browser",
+                paragraph1: "Your browser is not supported and some features on this website may not work correctly.",
+                paragraph2: "For the best possible experience, we recommend using the latest version of one of the options below.",
+                display: ["chrome", "firefox", "safari", "msie"]
+            });
+        }
+
+        var showLogin = function() {
+            Ply.dialog("prompt", {
+                title: "Login",
+                form: {
+                    email: "Email",
+                    password: {hint: "Password", type: "password"}
+                }
+            })
+            .then((ui) => {
+                var data = ui.data;
+
+                //Get email and password
+                var tempUser = data.email;
+                var password = data.password;
+
+                if (tempUser.length > 0 && password.length > 0) {
+                    var url = "./login?user=" + tempUser + "&password=" + password;
+
+                    loadURL(url, function(data) {
+                        var res = data;
+
+                        if (res == "1") {
+                            user = tempUser;
+                            login();
+                        }
+                        else {
+                            Ply.dialog("alert", "Invalid email or password")
+                            .then((ui) => {
+                                showLogin();
+                            })
+                            .catch((ui) => {
+                                //Pressed cancel
+                            });
+                        }
+                    });
+                }
+            })
+            .catch((ui) => {
+                //Pressed cancel
+            });
+        }
+
+        var showSignUp = function() {
+            Ply.dialog("prompt", {
+                title: "Sign Up",
+                form: {
+                    email: "Email",
+                    password: {hint: "Password", type: "password"}
+                }
+            })
+            .then((ui) => {
+                var data = ui.data;
+
+                //Get email and password
+                var tempUser = data.email;
+                var password = data.password;
+
+                if (tempUser.length > 0 && password.length > 0) {
+                    var url = "./createUser?user=" + tempUser + "&password=" + password;
+
+                    loadURL(url, function(data) {
+                        var res = data;
+
+                        if (res == "1") {
+                            user = tempUser;
+                            login();
+                        }
+                        else {
+                            Ply.dialog("alert", "Email already in use")
+                            .then((ui) => {
+                                showSignUp();
+                            })
+                            .catch((ui) => {
+                                //Pressed cancel
+                            });
+                        }
+                    });
+                }
+            })
+            .catch((ui) => {
+                //Pressed cancel
+            });
+        }
+
+        var login = function() {
+            if (user != null) {
+                //Display user in top right corner
+                document.getElementById("username").innerHTML = user;
+
+                //Change login button to logout
+                document.getElementById("loginButton").innerHTML = "Logout";
+                document.getElementById("loginButton").href = "javascript:logout()";
+
+                //Hide sign up button
+                document.getElementById("signUpButton").style.visibility = "hidden";
+
+                //Show add button and feed list
+                document.getElementById("addButton").style.visibility = "visible";
+
+                loadMySubs(0); //open first feed after loading
+            }
+        }
+
+        var logout = function() {
+            //Clear out user
+            user = null;
+            document.getElementById("username").innerHTML = "";
+
+            //Change logout button to login
+            document.getElementById("loginButton").innerHTML = "Login";
+            document.getElementById("loginButton").href = "javascript:showLogin()";
+
+            //Show sign up button
+            document.getElementById("signUpButton").style.visibility = "visible";
+
+            //Hide add button and feed list
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("myFeedList").innerHTML = "Login or sign up to view your feeds!";
+
+            loadMySubs(-1); //no feeds to open
+        }
+
+    </script>
+
+</head>
+<body onload="startUp()" background: url("loginBG.png");>
+    <!-- Navigation -->
+    <div id="wrapper" class="login">
+        <div class="app main">
+            <div class="content">
+                <div class="logo">
+                    <a href="feed.html"><img src="slices/logo.png"></a>
+                </div>
+                <div class="links">
+                    <ax id="username"></ax>
+                    <a id="loginButton" href="javascript:showLogin()" class="button">Login</a>
+
+                    <a id="signUpButton" href="javascript:showSignUp()" class="button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/index.js"></script>
+    <!-- jQuery -->
+
+
+
+</body>
+</html>

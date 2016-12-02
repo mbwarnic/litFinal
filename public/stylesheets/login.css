@@ -1,0 +1,727 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+@font-face {
+	font-family: 'Dual';
+	src: url('./fonts/dual-300-webfont.eot');
+	src: url('./fonts/dual-300-webfont.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/dual-300-webfont.woff2') format('woff2'),
+		url('./fonts/dual-300-webfont.woff') format('woff'),
+		url('./fonts/dual-300-webfont.ttf') format('truetype'),
+		url('./fonts/dual-300-webfont.svg#dual300') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Aquatico Regular';
+	src: url('./fonts/aquatico-regular-webfont.eot');
+	src: url('./fonts/aquatico-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/aquatico-regular-webfont.woff2') format('woff2'),
+		url('./fonts/aquatico-regular-webfont.woff') format('woff'),
+		url('./fonts/aquatico-regular-webfont.ttf') format('truetype'),
+		url('./fonts/aquatico-regular-webfont.svg#aquaticoregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	-webkit-overflow-scrolling: touch;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+		font-family: "Helvetica","Arial",sans-serif;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 20px;
+	}
+
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+
+    background-image: url("loginBG.png");
+
+    background-attachment:fixed;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+    margin:0px;
+    padding:0px;
+	overflow: hidden;
+}
+
+a {
+	color: #dd2476
+}
+
+#wrapper {
+	padding: 50px 0px 50px 0px;
+	background-color: #eeeeee;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+a { text-decoration: none; }
+/* Portrait layout (default) */
+.app {
+    width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	overflow: auto;
+	font-family: 'Dual';
+	position:relative;
+	box-sizing: border-box;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	align-content: stretch;
+	align-items: stretch;
+	justify-content: center;
+}
+
+.top-bar {
+	width: 100%;
+	height: 50px;
+	padding: 14px 10px;
+	text-align: center;
+	font: bold 1.6em 'Aquatico Regular';
+	color: #FFF;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	box-sizing: border-box;
+	z-index: 100;
+	
+}
+.top-bar i.fa { float: right; }
+
+.bottom-bar {
+ position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 100;
+}
+
+.bottom-bar ul {
+ list-style: none;
+	height: 50px;
+	padding: 0px;
+	margin: 0px;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f0cbb0+0,e7c7c9+50,f0cbb0+100 */
+	
+	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: stretch;
+
+}
+
+.bottom-bar ul li {
+	flex: 1 1 auto;
+	text-align: center;
+	box-sizing: border-box;
+	color: #FFF;
+	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+	
+}
+
+.bottom-bar ul li a { color: #FFF; }
+
+.bottom-bar ul li.active {
+	background-color: rgba(254, 80, 47, .20);
+}
+
+.bottom-bar ul li.active, .bottom-bar ul li.active a {
+	color: #dd2476;
+}
+
+.bottom-bar ul li.camera { 
+	background-color: #d32f2f; 
+	color: #FFF;
+}
+
+.bottom-bar ul li i.fa {
+	font-size: 2em;
+	
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+
+/*LOGIN*/
+#wrapper.login {
+	padding: 0px;
+	background-image: url("loginBG.png");
+
+}
+
+.login .content { 
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: hidden;
+	height: 100%;
+	display: flex;
+	flex-flow: column wrap;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+.login .content .title {  
+	font: 1.5em "Aquatico Regular";
+	text-transform: uppercase;
+	color: #FFFFFF;
+	padding: 10px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+.login .content .links {
+	
+}
+.login .content .links a {
+	display: block;
+	color: #FFFFFF;
+	padding: 10px;
+	border: 2px solid #FFF;
+	border-radius: 5px;
+	width: 150px;
+	margin: 10px;
+}
+ ax {
+	xdisplay: block;
+	color: #FFFFFF;
+	padding: 10px;
+	width: 150px;
+	margin: 10px;
+}
+
+
+/*UPLOAD*/
+.upload {}
+.upload ul li a { color: #DD2476; }
+.upload .content { 
+	padding: 0px;
+	box-sizing: border-box;
+	/*height: 455px;
+	overflow: auto;*/
+	background-color: #FFF;
+	height: 100%;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-content: stretch;
+	align-items: stretch;
+}
+.upload .content > * {
+	flex: 0 0 auto;
+}
+
+.upload .image-preview {
+	width: 100%;
+	height: 22%;
+	background-image: url('http://www.placehold.it/400x200/F2F2F2/505050/&text=NO IMAGE CHOSEN');
+	background-size: cover;
+	background-position: center center;
+	flex: 1 1 auto;
+}
+.upload .content .info {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content:s pace-between;
+	align-content: stretch;
+	align-items: stretch;
+}
+.upload .content .info > span {
+	width: 50%;
+	height: 40px;
+	flex: 1 1 50%;
+	border: 1px solid #DD2476;
+	box-sizing: border-box;
+}
+.upload .content .info > span:last-of-type { margin-left:-1px; }
+.upload .content .info > span input { width: 100%; height: 100%; box-sizing: border-box; 
+text-transform: uppercase;
+	color: #FE502F;
+	font: 1.1em 'Aquatico Regular';
+	background-color: #FFFFFF;
+	padding: 5px 10px 0px 10px;
+}
+
+.upload .content .inputLocation {
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+    .upload .content .type {
+        width: 100%;
+        height: 50px;
+        background-image: url("loginBG.png");
+    }
+
+
+.upload .content .type ul {
+	list-style: none;
+	height: 50px;
+	padding: 0px;
+	margin: 0px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: stretch;
+
+}
+.upload .content .type ul li {
+	flex: 1 1 auto;
+	text-align: center;
+	box-sizing: border-box;
+	color: #FE502F;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+	
+}
+.upload .content .type ul li.chosen {
+	background-color: rgba(254, 80, 47, .20);
+}
+
+.upload .content .type ul li i.fa {
+	font-size: 2em;
+	background-image: url("loginBG.png");
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+
+
+.upload .content .description { width: 100%; height: 35%; flex: 2 1 auto;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: stretch;
+	align-items: stretch;
+}
+
+.upload .content .description textarea { 
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	
+	background-color: #FFFFFF;
+	color: #e44f91;
+	padding: 10px;
+	font: 1em 'Dual';
+}
+
+
+/*STORY LIST*/
+.listed-stories {	
+	
+}
+
+.listed-stories .content { 
+	padding: 15px;
+	box-sizing: border-box;
+	height: 100%;
+	overflow: auto;
+}
+
+.listed-stories .item {
+	background-color: #FFF;
+	box-shadow: 0px 9px 8px -8px #D1D1D1; 
+	margin-bottom: 10px;
+}
+
+.listed-stories .item:last-of-type {
+	margin-bottom: 0px;
+}
+
+.listed-stories .item > div:not(.image-preview) {
+	padding: 10px 10px 0px 10px;
+}
+
+.listed-stories .item .image-preview {
+	display: table;
+	width: 100%;
+}
+
+.listed-stories .item .image-preview > div { 
+	width: 100%; 
+	height: 150px; 
+	background-image: url("loginBG.png");
+	background-image: url('');
+	background-size: cover;
+	/*background-attachment: fixed;*/
+	background-repeat: no-repeat;
+	background-position: center;
+	display: table-cell;
+	vertical-align: bottom;
+	padding: 20px;
+	box-sizing: border-box;
+	color: #FFF;
+	font-family: 'Aquatico Regular';
+	position: relative;
+	
+}
+.listed-stories .item .image-preview .title { 
+	font: 1.2em 'Aquatico Regular';
+	position: relative;
+	z-index: 2;
+	padding: 3px 0px;
+}
+.listed-stories .item .image-preview .date { 
+	font: .9em "Dual";
+	position: relative;
+	z-index: 2;
+}
+
+.listed-stories .item .image-preview > div .accent { 
+	position: absolute;
+	bottom:0px;
+	left: 0px;
+	width: 100%;
+	height: 150px;
+	background-image: url("loginBG.png");
+	
+}
+
+.listed-stories .item .summary { 
+	font-size: 95%;
+	color: #353E47;
+	max-height: 150px;
+	overflow: hidden;
+	position:relative;
+	line-height: 1.4em;
+}
+
+.listed-stories .item .summary:after { 
+	content: "";
+	text-align: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 4em;
+	background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%);
+}
+
+.listed-stories .item .summary p {     
+	line-height: 1.3em;
+	margin-bottom: 6px; 
+}
+
+.listed-stories .item .summary .location { 
+	/*font-size: 90%;*/
+	color: #DD2476;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+
+.listed-stories .item .options { 
+	padding: 10px; 
+	height: 20px; 
+	border-top: 1px solid #f2f2f2;
+	font-size: .9em;
+}
+
+.listed-stories .item .options a {
+	color: inherit; 
+}
+
+.listed-stories .item .options > div { 
+	float: left; 
+	padding: 0px 5px; 
+	color: #b6b6b6; 
+}
+
+.listed-stories .item .options i.fa { font-size: 1.5em; padding: 0px 5px; }
+
+.listed-stories .item .options .view-full { 
+ 	float: right;
+}
+
+.listed-stories .item .options .view-full a { 
+	text-transform: uppercase;
+	color: #ff512f;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+/*FULL STORY*/
+
+.full-story {
+ 	padding: 0px;
+	background-color: #FFF;
+}
+.full-story .app {
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-content: stretch;
+	align-items: stretch;
+}
+.full-story .app > div { flex: 0 0 auto; }
+.full-story .image-preview {
+	
+	width: 100%;
+}
+
+.full-story .image-preview > div { 
+	width: 100%; 
+	height: 175px; 
+	background-color: #727272;
+	background-image: url('');
+	background-size: cover;
+	/*background-attachment: fixed;*/
+	background-repeat: no-repeat;
+	background-position: center;
+	
+	box-sizing: border-box;
+	color: #FFF;
+	font-family: 'Aquatico Regular';
+	position: relative;
+	
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-content: stretch;
+	align-items: stretch;
+
+}
+.full-story .image-preview .title { 
+	font: 1.2em 'Aquatico Regular';
+	position: relative;
+	z-index: 2;
+	padding: 15px 15px 5px 15px;
+	margin-top: auto;
+}
+.full-story .image-preview .date { 
+	font: .9em "Dual";
+	position: relative;
+	z-index: 2;
+	padding: 0px 15px 15px 15px;
+}
+
+.full-story .image-preview > div .accent { 
+	position: absolute;
+	bottom:0px;
+	left: 0px;
+	width: 100%;
+	height: 150px;
+	background-image: url("loginBG.png");
+
+}
+
+.full-story .options { 
+	padding: 10px; 
+	width: 100%;
+	font-size: .9em;
+	
+	box-sizing: border-box;
+}
+
+.full-story .options > div { 
+	float: right; 
+	padding: 0px 5px; 
+	color: #FFF; 
+}
+.full-story .options a {
+	color: #FFF; 
+}
+
+.full-story .options .back { float: left; }
+
+.full-story .options i.fa { font-size: 1.2em; padding: 0px 5px; }
+
+
+
+.full-story .summary { 
+	padding: 10px 30px;
+	font-size: 98%;
+	background-color: #FFFFFF;
+	color: #353E47;
+	position:relative;
+	line-height: 1.4em;
+	text-align: justify;
+	flex: 1 1 auto!important;
+	
+}
+
+.full-story .summary p {
+	text-indent: 15px;
+	line-height: 1.4em;
+}
+
+.full-story .summary span { 
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1em;
+	font-family: 'Aquatico Regular';
+	display: block;
+	color: #DD2476;
+	margin: 5px 0px 0px 0px;
+}
+
+.full-story .summary .location { 
+	color: #353E47;
+	font-weight: bold;
+}
+
+.full-story .summary .location span { color: #ff512f; }
+
+.full-story .map {
+	color: #FFF;
+	position: absolute;
+	top: -15px;
+	right: 20px;
+	background-image: url("loginBG.png");
+	-webkit-box-shadow: 0px 3px 10px -2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 3px 10px -2px rgba(0,0,0,0.5);
+	box-shadow: 0px 3px 10px -2px rgba(0,0,0,0.5);
+	
+	border-radius: 100%;
+	font-size: 20px;
+	width: 55px;
+	height: 55px;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}
+
+
+.full-story .map a { 
+	color: #FFF;
+}
+
+
+
+/*USER*/
+
+.user-info  .app {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-content: stretch;
+	align-items: stretch;
+}
+
+.user-info .user { 
+	width: 100%;
+	background-color: #FFF;
+	position: relative;
+	z-index: 11;
+	box-sizing: border-box;
+}
+
+.user-info .icon { 
+	height: 175px;
+	background-color: #A91A5A;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}
+
+.user-info img {
+	width: 125px;
+	height: 125px;
+	border-radius: 100%;
+	
+}
+
+.user-info .user > span {
+	padding: 15px;
+	font-size: 1.3em;
+	font-family: 'Aquatico';
+	font-weight: bold;
+	text-transform: capitalize;
+	color: #dd2476;
+	display: block;
+	text-align: center; 
+	background-image: url("loginBG.png");
+
+}
+
+.user-info .bio {
+	padding: 10px;
+	font-size: .9em;
+	color: #a7a7a7;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.user-info .posts {
+	flex: 1 1 auto;
+	background-color: #FFFFFF;
+}
+
+
+/*Map Styles*/
+.gm-style .gm-style-iw { /*top: 0px!important; left: 0px!important; */ 
+	font: 1.1em "Dual";
+	text-align: left;
+}
+.gm-style .gm-style-iw a { color: #DD2476; } 
+.gm-style .gm-style-iw i.fa { margin-left: 3px; } 
+
+/*.gm-style .gm-style-iw > div { width: 300px; height: 300px; }*/
+
+.listed-stories.map .item { width: 300px; height: 323px; }
+.listed-stories.map { position: static; height: 323px; }
+.listed-stories.map .item .options { width: 100%; box-sizing: border-box; position: absolute; bottom: 10px; left: 0px; }
+
+
+
+/*Input Styles*/
+input:focus, textarea:focus {
+	outline: none;
+}
+input, textarea {
+	display: block;
+	border: none;
+	-webkit-appearance: none;
+}
+
+
+.hide { display: none!important; }
